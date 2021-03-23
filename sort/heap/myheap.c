@@ -107,7 +107,7 @@ int     main()
 	for (int i = 1; i < 31; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
 	insert_heap(pheap, 171);
-	printf("insert 17\n");
+	printf("insert 171\n");
 	for (int i = 1; i < 32; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
 	delete_heap(pheap);
