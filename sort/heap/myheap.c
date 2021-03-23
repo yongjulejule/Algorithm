@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define HEAPSIZE 31
+#define HEAPSIZE 30
 
 typedef struct	s_heap{
 	int *heap;
@@ -68,7 +68,6 @@ void    insert_heap(t_heap *pheap, int newdata)
 {
 	pheap->heap = expend_heap(pheap);
 	pheap->heap[pheap->size - 1] = newdata;
-	swap(&pheap->heap[1], &pheap->heap[pheap->size - 1]);
 	build_max_heap(pheap);
 }
 
@@ -81,7 +80,7 @@ void    delete_heap(t_heap *pheap)
 
 void    heap_sort(t_heap *pheap)
 {
-	while(pheap->size > 0)
+	while(pheap->size > 1)
 	{
 		swap(&pheap->heap[1], &pheap->heap[pheap->size - 1]);
 		pheap->size--;
@@ -99,12 +98,27 @@ int     main()
 	for (int i = 1; i < 31; i++)
 		test[i] = rand() % 200 + 1;
 	pheap->heap = test;
+	printf("origin array\n");
 	for (int i = 1; i < 31; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
 	pheap->size = HEAPSIZE + 1;
 	build_max_heap(pheap);
+	printf("origin heap\n");
 	for (int i = 1; i < 31; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
+	insert_heap(pheap, 171);
+	printf("insert 17\n");
+	for (int i = 1; i < 32; i++)
+		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
+	delete_heap(pheap);
+	printf("delete a node\n");
+	for (int i = 1; i < 31; i++)
+		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
+	heap_sort(pheap);
+	printf("heap sort\n");
+	for (int i = 0; i < 31; i++)
+		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
+
 	free(pheap->heap);
 	free(pheap);
 }
