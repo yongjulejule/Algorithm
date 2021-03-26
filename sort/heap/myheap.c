@@ -57,7 +57,7 @@ int     *expend_heap(t_heap *pheap)
 
 	idx = -1;
 	pheap->size++;
-	tmp = (int*)malloc(sizeof(int) * pheap->size);
+	tmp = (int*)malloc(sizeof(int) * (pheap->size + 1));
 	while (++idx < pheap->size - 1)
 		tmp[idx] = pheap->heap[idx];
 	free(pheap->heap);
@@ -94,14 +94,14 @@ int     main()
 	t_heap  *pheap;
 
 	pheap = (t_heap*)malloc(sizeof(t_heap));
-	test = (int*)malloc(sizeof(int) * (HEAPSIZE + 1));
+	test = (int*)malloc(sizeof(int) * (HEAPSIZE + 2));
 	for (int i = 1; i < 31; i++)
 		test[i] = rand() % 200 + 1;
 	pheap->heap = test;
 	printf("origin array\n");
 	for (int i = 1; i < 31; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
-	pheap->size = HEAPSIZE + 1;
+	pheap->size = HEAPSIZE;
 	build_max_heap(pheap);
 	printf("origin heap\n");
 	for (int i = 1; i < 31; i++)
@@ -116,7 +116,7 @@ int     main()
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
 	heap_sort(pheap);
 	printf("heap sort\n");
-	for (int i = 0; i < 31; i++)
+	for (int i = 0; i < 32; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
 
 	free(pheap->heap);
