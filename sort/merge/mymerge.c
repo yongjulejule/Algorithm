@@ -1,7 +1,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define ARR_SIZE 30
+#include <time.h>
+#define ARR_SIZE 3000
 
 //data를 모두 분리해서 arr에 넣음
 void	merge(int *arr, int left, int mid, int right)
@@ -72,7 +73,6 @@ void	merge_sort(int *arr, int left, int right)
 		mid = left + (right - left) / 2; // 그냥 left + right 연산시의 overflow를 방지할 수 있음...!
 		merge_sort(arr, left, mid);
 		merge_sort(arr, mid + 1, right);
-		printf("current arr[left] is %d and left is %d \ncurrent arr[right] is %d and right is %d \n", arr[left], left, arr[right], right);
 		merge(arr, left, mid, right);
 	}
 }
@@ -80,16 +80,22 @@ void	merge_sort(int *arr, int left, int right)
 int		main()
 {
 	int *arr;
+	clock_t start, end;
+	double res;
 
 	arr = (int*)malloc(sizeof(int) * ARR_SIZE);
 	for (int i = 0; i<ARR_SIZE; i++)
-		arr[i] = rand() % 200 + 1;
+		arr[i] = rand() % 20000 + 1;
 	printf("origin arr is \n");
 	for (int i = 0; i<ARR_SIZE; i++)
 		printf("%dth element is %d\n", i, arr[i]);	
+	start = clock();
 	merge_sort(arr, 0, ARR_SIZE - 1);
+	end = clock();
+	res = (double)(end - start);
 	printf("after sort\n");
 	for (int i = 0; i<ARR_SIZE; i++)
 		printf("%dth element is %d\n", i, arr[i]);	
 	free(arr);
+	printf("time taken:%fms\n",res);
 }

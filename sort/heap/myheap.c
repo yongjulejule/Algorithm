@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #define HEAPSIZE 30
 
 typedef struct	s_heap{
@@ -92,33 +93,38 @@ int     main()
 {
 	int     *test;
 	t_heap  *pheap;
+	clock_t start, end;
+	double res;
 
 	pheap = (t_heap*)malloc(sizeof(t_heap));
 	test = (int*)malloc(sizeof(int) * (HEAPSIZE + 2));
-	for (int i = 1; i < 31; i++)
-		test[i] = rand() % 200 + 1;
+	for (int i = 1; i < HEAPSIZE + 1; i++)
+		test[i] = rand() % 20000 + 1;
 	pheap->heap = test;
-	printf("origin array\n");
-	for (int i = 1; i < 31; i++)
-		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
 	pheap->size = HEAPSIZE;
+	printf("origin array\n");
+	for (int i = 1; i < HEAPSIZE + 1; i++)
+		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
 	build_max_heap(pheap);
 	printf("origin heap\n");
-	for (int i = 1; i < 31; i++)
+	for (int i = 1; i < HEAPSIZE + 1; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
 	insert_heap(pheap, 171);
 	printf("insert 171\n");
-	for (int i = 1; i < 32; i++)
+	for (int i = 1; i < HEAPSIZE + 2; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
 	delete_heap(pheap);
 	printf("delete a node\n");
-	for (int i = 1; i < 31; i++)
+	for (int i = 1; i < HEAPSIZE + 1; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
+	start = clock();
 	heap_sort(pheap);
+	end = clock();
+	res = (double)(end - start);
 	printf("heap sort\n");
-	for (int i = 0; i < 32; i++)
+	for (int i = 0; i < HEAPSIZE + 2; i++)
 		printf("%dth node in heap is %d\n", i, pheap->heap[i]);
-
 	free(pheap->heap);
 	free(pheap);
+	printf("time taken:%fms\n", res);
 }
