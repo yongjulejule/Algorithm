@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#define K 3
+#define ABS(x) ((x < 0) ? (-x) : (x))
+
 typedef	struct	s_bst{
 	int key;
 	struct s_bst *parent;
@@ -9,14 +12,14 @@ typedef	struct	s_bst{
 	struct s_bst *right;
 }				t_bst;
 
-t_bst	*search_node(t_bst *node, int key) //recursive search
+t_bst	*search_node_to_delete(t_bst *node, int key) //recursive search
 {
 	if (node == NULL || node->key == key)
 		return (node);
 	if (node->key > key)
-		return search_node(node->left, key);
+		return search_node_to_delete(node->left, key);
 	else 
-		return search_node(node->right, key);
+		return search_node_to_delete(node->right, key);
 }
 
 t_bst	*minimum_node(t_bst *min)
@@ -43,7 +46,7 @@ void	delete_node(t_bst **bst, int key)
 	t_bst *delete_node;
 	t_bst *tmp;
 
-	delete_node = search_node(*bst, key);
+	delete_node = search_node_to_delete(*bst, key);
 	tmp = delete_node;
 	if (delete_node == NULL)
 		return ;
@@ -75,13 +78,25 @@ void	init_node(t_bst *newnode, int key)
 	newnode->key = key;
 }
 
-void	inorder_to_print(t_bst *bst)
+int		search_node(t_bst *node, int key) //iterative search, K조건을 위해 수정한 함수
+{
+	while (node != NULL && (ABS((key - (node->key))) >= K)) // K분 안에 착륙을 할 수 없음.
+	{
+		if (key < node->key)
+			node = node->left;
+		else 
+			node = node->right;
+	}
+	return ((node == NULL) ? 1 : 0);
+}
+
+void	inorder_tree_walk(t_bst *bst)
 {
 	if (bst != NULL)
 	{
-		inorder_to_print(bst->left);
+		inorder_tree_walk(bst->left);
 		printf("%d, ", bst->key);
-		inorder_to_print(bst->right);
+		inorder_tree_walk(bst->right);
 	}
 }
 
@@ -110,12 +125,12 @@ void	insert_node(t_bst **root, int key)
 	else y->right = newnode;
 }
 
-void	postorder_to_free(t_bst *bst)
+void	postorder_tree_walk(t_bst *bst)
 {
 	if (bst != NULL)	
 	{	
-		postorder_to_free(bst->left);
-		postorder_to_free(bst->right);
+		postorder_tree_walk(bst->left);
+		postorder_tree_walk(bst->right);
 		free(bst);
 	}
 }
@@ -123,27 +138,37 @@ void	postorder_to_free(t_bst *bst)
 int main()
 {
 	t_bst **root;
+	int R[] = {46, 41, 49, 37, 56};
 	int i;
-	int j = 0;
+	char buf[6] = "";
 
+	i = 0;
 	root = (t_bst**)malloc(sizeof(t_bst*));
 	*root = NULL;
-	srand(42);
-	while (j < 50) // 1 ~ 100 까지 수 중에서 50개를 트리에 삽입
+	while (i < 5)
 	{
-		i = rand() % 100 + 1;
-		insert_node(root, i);
-		j++;
+		insert_node(root, R[i]);
+		i++;
 	}
-	inorder_to_print(*root); //print 하기 위한 중위 순회
-	printf("\n42가 있는지 확인합니다.\n");
-	if (search_node(*root, 42))
-		printf("존재하는 데이터 입니다.\n");
-	else printf("존재하지 않는 데이터 입니다.\n");
-	printf("41을 삭제합니다.\n");
-	delete_node(root, 41);
-	inorder_to_print(*root);
-	postorder_to_free(*root); //free 하기 위한 후위 순회
+	inorder_tree_walk(*root); //print 하기 위한 중위 순회
+	printf("착륙 예정 시간을 입력하시오(2자리 정수)\n");
+	read(0, buf, 2);
+	i = atoi(buf);
+	if (!search_node(*root, i))
+		printf("해당 시간엔 착륙 할 수 없습니다.\n");
+	else
+	{
+		insert_node(root, i);
+		printf("요청한 시간에 예약되었습니다.\n");
+	}
+	printf("취소할 시간을 입력하세요");
+	inorder_tree_walk(*root);
+
+	read(0, buf, 2);
+	i = atoi(buf);
+	delete_node(root, i);
+	printf("취소되었습니다.");
+	inorder_tree_walk(*root);
+	postorder_tree_walk(*root); //free 하기 위한 후위 순회
 	free(root);
-	printf("\n");
 }
