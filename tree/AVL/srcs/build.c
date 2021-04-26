@@ -34,7 +34,7 @@ void	rightRotate(t_avl **avl, t_avl *nil)
 	if (y->right != nil)
 		y->right->parent = x;
 	if (x->parent == nil)
-		y->parent == nil;
+		y->parent = nil;
 	else if (x == x->parent->left)
 		x->parent->left = y;
 	else
