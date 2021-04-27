@@ -1,68 +1,78 @@
 #include "rbt.h"
 
-void	RBinsertFixup(t_rbt **root, t_rbt *nil, t_rbt *(*newnode))
+void	initNode(t_rbt *newnode, t_rbt *nil, int key)
+{
+	newnode->parent = nil;
+	newnode->left = nil;
+	newnode->right = nil;
+	newnode->key = key;
+}
+
+void	RBinsertFixup(t_rbt **newnode, t_rbt *nil)
 {
 	t_rbt *y;
+	t_rbt *z;
 
-	while ((*newnode)->parent->color == RED)
+	z = *newnode;
+	while (z->parent->color == RED)
 	{
-		if ((*newnode)->parent == (*newnode)->parent->parent->left) //부모 노드가 left인경우
+		if (z->parent == z->parent->parent->left) //부모 노드가 left인경우
 		{	
-			y = (*newnode)->parent->parent->right; //y 는 uncle
+			y = z->parent->parent->right; //y 는 uncle
 			if (y->color == RED) //Case 1.
 			{
-				(*newnode)->parent->color = BLACK;
+				z->parent->color = BLACK;
 				y->color = BLACK;
-				(*newnode)->parent->parent->color = RED;
-				(*newnode) = (*newnode)->parent->parent;
+				z->parent->parent->color = RED;
+				z = z->parent->parent;
 			}
 			else //case 2, 3
 			{
-				if ((*newnode) == (*newnode)->parent->right) //case 2
+				if (z == z->parent->right) //case 2
 				{
-					(*newnode) = (*newnode)->parent;
-					leftRotate(&(*newnode), nil);
+					z = z->parent;
+					leftRotate(&z, nil);
 				}
-				(*newnode)->parent->color = BLACK; // case 3
-				(*newnode)->parent->parent->color = RED;
-				rightRotate(&(*newnode)->parent->parent, nil);
+				z->parent->color = BLACK; // case 3
+				z->parent->parent->color = RED;
+				rightRotate(&z->parent->parent, nil);
 			}
 		}
 		else //부모 노드가 right인 경우. symmetric한 구조라서 좌우만 바꾸면 됨
 		{
-			y = (*newnode)->parent->parent->left;
+			y = z->parent->parent->left;
 			if (y->color == RED)
 			{
-				(*newnode)->parent->color = BLACK;
+				z->parent->color = BLACK;
 				y->color = BLACK;
-				(*newnode)->parent->parent->color = RED;
-				(*newnode) = (*newnode)->parent->parent;
+				z->parent->parent->color = RED;
+				z = z->parent->parent;
 			}
 			else
 			{
-				if ((*newnode) == (*newnode)->parent->left)
+				if (z == z->parent->left)
 				{
-					(*newnode) = (*newnode)->parent;
-					rightRotate(&(*newnode), nil);
+					z = z->parent;
+					rightRotate(&z, nil);
 				}
-				(*newnode)->parent->color = BLACK;
-				(*newnode)->parent->parent->color = RED;
-				leftRotate(&(*newnode)->parent->parent, nil);
+				z->parent->color = BLACK;
+				z->parent->parent->color = RED;
+				leftRotate(&z->parent->parent, nil);
 			}
 		}
 	}
-	if ((*newnode)->parent == nil)
-		(*newnode)->color = BLACK;
+	if (z->parent == nil) //이때는 root 노드가 된다.
+		z->color = BLACK;
 }
 
-void	RBinsert(t_rbt **root,t_rbt *nil, int key)
+t_rbt	**RBinsert(t_rbt **root,t_rbt *nil, int key)
 {
 	t_rbt *y;
 	t_rbt *x;
 	t_rbt *newnode;
 
 	newnode = (t_rbt*)malloc(sizeof(t_rbt));
-	newnode = initNode(newnode, nil, key);
+	initNode(newnode, nil, key);
 	y = nil;
 	x = *root;
 	while (x != nil)
@@ -75,11 +85,12 @@ void	RBinsert(t_rbt **root,t_rbt *nil, int key)
 	newnode->parent = y;
 	if (y == nil)
 		*root = newnode;
-	else if (newnode->key < y->key)
+	else if (key < y->key)
 		y->left = newnode;
 	else y->right = newnode;
-	newnode->left = nil;
-	newnode->right = nil;
 	newnode->color = RED;
-	RBinsertFixup(root, nil, &newnode);
+	RBinsertFixup(&newnode, nil);
+	if((*root)->parent != nil)
+		(*root) = (*root)->parent;;
+	return (root);
 }

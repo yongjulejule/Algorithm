@@ -1,13 +1,5 @@
 #include "rbt.h"
 
-t_rbt	*initNode(t_rbt *newnode, t_rbt *nil, int key)
-{
-	newnode->parent = nil;
-	newnode->left = nil;
-	newnode->right = nil;
-	newnode->key = key;
-	return (newnode);
-}
 
 t_rbt	*makeNil(t_rbt *nil)
 {
@@ -38,13 +30,18 @@ int 	main(void)
 	root = (t_rbt**)malloc(sizeof(t_rbt*));
 	*root = nil;
 	srand(42);
-	while (j < 10)
+
+	//	int a[20]={26,17,41,14,21,30,47,10,16,19,23,28,38,7,12,15,20,35,39,3}; 게시글의 첫번째 트리와 같은 구조
+	while (j < 100)
 	{
-		i = rand() % 242 + 1;
-		printf("%d, ", i);
+		i = rand() % 20000 + 1;
+
+		//		RBinsert(root, nil, a[j]);
 		RBinsert(root, nil, i);
-		printf("key : %d, color : %d\n", (*root)->key, (*root)->color);
 		j++;
 	}
+	RBinsert(root, nil, 4242);
+	while ((*root)->parent != nil)
+		*root = (*root)->parent;
 	inOrdertoPrint(*root, nil);
 }

@@ -24,6 +24,6 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME) $(DEBUG)
-
-re: fclean all
+	rm -f $(NAME)
+	rm -rf $(wildcard $(DEBUG)*)
+re: fclean all clean
