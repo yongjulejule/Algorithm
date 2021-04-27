@@ -1,6 +1,5 @@
 #include "rbt.h"
 
-
 t_rbt	*makeNil(t_rbt *nil)
 {
 	nil->parent = NULL;
@@ -10,6 +9,7 @@ t_rbt	*makeNil(t_rbt *nil)
 	nil->color = BLACK;
 	return (nil);
 }
+
 void	inOrdertoPrint(t_rbt *tree, t_rbt *nil)
 {
 	if (tree != nil)
@@ -17,6 +17,16 @@ void	inOrdertoPrint(t_rbt *tree, t_rbt *nil)
 		inOrdertoPrint(tree->left, nil);
 		printf("key : %d, color : %d\n", tree->key, tree->color);
 		inOrdertoPrint(tree->right, nil);
+	}
+}
+
+void	postOrdertoFree(t_rbt *tree,t_rbt *nil)
+{
+	if (tree != nil)
+	{
+		postOrdertoFree(tree->left, nil);
+		postOrdertoFree(tree->right, nil);
+		free(tree);
 	}
 }
 int 	main(void)
@@ -44,4 +54,8 @@ int 	main(void)
 	while ((*root)->parent != nil)
 		*root = (*root)->parent;
 	inOrdertoPrint(*root, nil);
+	postOrdertoFree(*root, nil);
+	free(root);
+	free(nil);
+	while(1){};
 }
