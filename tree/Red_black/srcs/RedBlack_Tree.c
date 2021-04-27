@@ -57,5 +57,4 @@ int 	main(void)
 	postOrdertoFree(*root, nil);
 	free(root);
 	free(nil);
-	while(1){};
 }
