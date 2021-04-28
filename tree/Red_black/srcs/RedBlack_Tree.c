@@ -10,12 +10,16 @@ t_rbt	*makeNil(t_rbt *nil)
 	return (nil);
 }
 
+
 void	inOrdertoPrint(t_rbt *tree, t_rbt *nil)
 {
 	if (tree != nil)
 	{
 		inOrdertoPrint(tree->left, nil);
-		printf("key : %d, color : %d\n", tree->key, tree->color);
+		if (tree->color == 0)
+			printf("\x1b[31mkey : %d, color : %d \x1b[0m \n", tree->key, tree->color);
+		else
+			printf("key : %d, color : %d\n", tree->key, tree->color);
 		inOrdertoPrint(tree->right, nil);
 	}
 }
@@ -53,6 +57,8 @@ int 	main(void)
 	RBinsert(root, nil, 4242);
 	while ((*root)->parent != nil)
 		*root = (*root)->parent;
+	inOrdertoPrint(*root, nil);
+	initRBDeletion(root, nil ,4242);
 	inOrdertoPrint(*root, nil);
 	postOrdertoFree(*root, nil);
 	free(root);
