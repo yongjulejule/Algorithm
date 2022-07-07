@@ -22,6 +22,7 @@
 		"ios": "cpp",
 		"__locale": "cpp",
 		"iosfwd": "cpp",
-		"utility": "cpp"
+		"utility": "cpp",
+		"sstream": "cpp"
 	}
 }
