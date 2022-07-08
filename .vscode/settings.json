@@ -24,6 +24,9 @@
 		"iosfwd": "cpp",
 		"utility": "cpp",
 		"sstream": "cpp",
-		"stack": "cpp"
+		"stack": "cpp",
+		"__tree": "cpp",
+		"list": "cpp",
+		"queue": "cpp"
 	}
 }
