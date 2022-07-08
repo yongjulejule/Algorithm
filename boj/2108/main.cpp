@@ -16,19 +16,19 @@ int main() {
       0,
   };
   cin.ios::sync_with_stdio(false);
-  cin.tie(0);
-  cout.tie(0);
+  // cin.tie(0);
+  // cout.tie(0);
   int N;
   cin >> N;
   cout << N;
   int *nbr = new int[N];
   long long sum = 0;
+  multimap<int, int> m;
   for (int i = 0; i < N; ++i) {
     cin >> nbr[i];
     ++idx[nbr[i]];
     sum += nbr[i];
   }
-  multimap<int, int> m;
   for (int i = 0; i < N; ++i) {
     m.insert(make_pair(idx[nbr[i]], nbr[i]));
   }
