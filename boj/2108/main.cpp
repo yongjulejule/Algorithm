@@ -6,47 +6,36 @@
 귀찮아.......
 */
 
+#include <algorithm>
+#include <cmath>
 #include <iostream>
-#include <map>
-#include <set>
 
 using namespace std;
+
+int idx[8001] = {
+    0,
+};
+
 int main() {
-  int idx[500001] = {
-      0,
-  };
   cin.ios::sync_with_stdio(false);
-  // cin.tie(0);
-  // cout.tie(0);
+  cin.tie(0);
+  cout.tie(0);
   int N;
   cin >> N;
-  cout << N;
   int *nbr = new int[N];
   long long sum = 0;
-  multimap<int, int> m;
   for (int i = 0; i < N; ++i) {
     cin >> nbr[i];
-    ++idx[nbr[i]];
+    ++idx[nbr[i] + 4000];
     sum += nbr[i];
   }
-  for (int i = 0; i < N; ++i) {
-    m.insert(make_pair(idx[nbr[i]], nbr[i]));
-  }
-  int max = 0;
-  auto range = m.equal_range(m.rbegin()->first);
-  if (range.second == m.end())
-    max = range.first->second;
-  else {
-    set<int> ss;
-    for_each(range.first, range.second,
-             [&ss](auto &p) { ss.insert(p.second); });
-    max = *(++ss.begin());
-  }
+  int max_idx = max_element(idx, idx + 8001) - idx;
+  int sec_idx = find(idx + max_idx + 1, idx + 8001, idx[max_idx]) - idx;
+  if (sec_idx > max_idx && sec_idx < 8001) max_idx = sec_idx;
   sort(nbr, nbr + N);
-  cout << "================\n";
-  cout << sum / N << "\n"
+  cout << lround(static_cast<double>(sum) / N) << "\n"
        << nbr[N / 2] << "\n"
-       << max << "\n"
+       << max_idx - 4000 << "\n"
        << nbr[N - 1] - nbr[0] << "\n";
   delete[] nbr;
 }
