@@ -1,13 +1,11 @@
 #include <algorithm>
 #include <iostream>
-#include <set>
 
 using namespace std;
-using uint = unsigned int;
 
-inline uint getTreeHeight(uint *tree, uint N, uint height) {
-  uint sum = 0;
-  for_each(tree, tree + N, [&](uint x) {
+inline long long getTreeHeight(long long *tree, long long N, long long height) {
+  long long sum = 0;
+  for_each(tree, tree + N, [&](long long x) {
     if (x > height) sum += x - height;
   });
   return sum;
@@ -16,23 +14,23 @@ inline uint getTreeHeight(uint *tree, uint N, uint height) {
 int main() {
   cin.ios::sync_with_stdio(false);
   cin.tie(0);
-  cout.tie(0);
-  uint N, M;
+  long long N, M;
   cin >> N >> M;
-  uint *tree = new uint[N];
-  for_each(tree, tree + N, [](uint &x) { cin >> x; });
-  sort(tree, tree + N);
-  uint h = tree[N - 1];
-  uint ub = h, lb = h - M;
-  while (lb + 1 < ub) {
+  long long *tree = new long long[N];
+  for_each(tree, tree + N, [](long long &x) { cin >> x; });
+  long long h;
+  long long ub = *max_element(tree, tree + N), lb = 0;
+  int ans = -1;
+  while (lb <= ub) {
     h = (lb + ub) / 2;
-    uint ret = getTreeHeight(tree, N, h);
-    if (M < ret) {
-      lb = h;
-    } else if (M > ret) {
-      ub = h;
-    } else
-      break;
+    long long ret = getTreeHeight(tree, N, h);
+    if (ret >= M) {
+      ans = h;
+      lb = h + 1;
+    } else {
+      ub = h - 1;
+    }
   }
-  cout << h << "\n";
+  cout << ans << "\n";
+  delete[] tree;
 }
