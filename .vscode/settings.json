@@ -30,6 +30,7 @@
 		"queue": "cpp",
 		"map": "cpp",
 		"numeric": "cpp",
-		"version": "cpp"
+		"version": "cpp",
+		"deque": "cpp"
 	}
 }
