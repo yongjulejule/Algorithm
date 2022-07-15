@@ -71,6 +71,7 @@
 		"string_view": "cpp",
 		"system_error": "cpp",
 		"tuple": "cpp",
-		"unordered_map": "cpp"
+		"unordered_map": "cpp",
+		"forward_list": "cpp"
 	}
 }
