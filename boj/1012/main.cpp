@@ -1,17 +1,31 @@
+#include <bitset>
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
-int getAdjBaechu(int *bat, const int w, const int h, const int i, const int j) {
-  int count = 0;
-  count = bat[i * w + j];
+int M, N;
+bitset<2601> visited;
+struct Point {
+  int row;
+  int col;
+};
 
-  return count;
+bool isValidIdx(const Point &start) {
+  return (start.col >= 0 && start.row >= 0) && (start.col < N && start.row < M);
 }
 
-void putJiRungI(int *bat, const int w, const int h) {
-  for (int i = 1; i < w - 1; ++i) {
-    for (int j = 1; j < h - 1; ++j) {
+void DFS(const Point &start, int *bat) {
+  static const int rowIdx[] = {-1, 0, 0, 1};
+  static const int colIdx[] = {0, -1, 1, 0};
+  for (int i = 0; i < 4; ++i) {
+    int row = start.row + rowIdx[i];
+    int col = start.col + colIdx[i];
+    if (isValidIdx({row, col}) && !visited[row + col * M] &&
+        bat[row + col * M] == 1) {
+      visited[row + col * M] = true;
+      bat[row + col * M] = 0;
+      DFS({row, col}, bat);
     }
   }
 }
@@ -23,21 +37,27 @@ int main() {
   int T;
   cin >> T;
   while (T--) {
-    int M, N, K;
+    int K;
     cin >> M >> N >> K;
-    int *bat = new int[M * N];
+    int *bat = new int[(M + 1) * (N + 1)]{0};
+    queue<Point> q;
+    visited.reset();
     for (int i = 0; i < K; ++i) {
       int x, y;
       cin >> x >> y;
       bat[x + y * M] = 1;
+      q.push({x, y});
     }
-    putJiRungI(bat, M, N);
-    for (int i = 0; i < N * M; ++i) {
-      cout << bat[i] << ", ";
-      if (i % M == M - 1) cout << endl;
+    int cnt = 0;
+    while (!q.empty()) {
+      auto cur = q.front();
+      if (bat[cur.row + cur.col * M] == 1) {
+        DFS(q.front(), bat);
+        ++cnt;
+      }
+      q.pop();
     }
-
+    cout << cnt << "\n";
     delete[] bat;
-    cout << "======================\n";
   }
 }
