@@ -11,7 +11,8 @@ int main() {
   int N, M;
   cin >> N >> M;
   string domain, pw;
-  while (N--) {
+  while (--N) {
+    cout << N << "\n";
     cin >> domain >> pw;
     ghanPW.insert({domain, pw});
   }

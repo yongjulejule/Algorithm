@@ -28,5 +28,26 @@
 			"cin.tie(nullptr);",
 			"}"
 		],
+	},
+	"benchmark" : {
+		"prefix" : "benchmark",
+		"body":[
+			"{",
+	    "auto start = chrono::steady_clock::now();",
+			"/* Insert Your First Test Cases */ ",
+			"$1",
+	    "auto end = chrono::steady_clock::now();",
+	    "cout << \"Test Case #1 elapsed time: \" << chrono::duration_cast<chrono::nanoseconds>(end - start).count() << \" ns\" << endl;",
+			"}",
+			"{",
+			"auto start = chrono::steady_clock::now();",
+			"/* Insert Your Second Test Cases */ ",
+			"$2",
+			" auto end = chrono::steady_clock::now(); ",
+	    "cout << \"Test Case #2 elapsed time: \" << chrono::duration_cast<chrono::nanoseconds>(end - start).count() << \" ns\" << endl;",
+			"}",
+		],
+		"description": "Benchmark for each cases.",
+		"scope": "c++"
 	}
 }
