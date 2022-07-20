@@ -48,6 +48,5 @@
 			"}",
 		],
 		"description": "Benchmark for each cases.",
-		"scope": "c++"
 	}
 }
