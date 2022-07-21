@@ -72,9 +72,12 @@
 		"system_error": "cpp",
 		"tuple": "cpp",
 		"unordered_map": "cpp",
-		"forward_list": "cpp"
+		"forward_list": "cpp",
+		"filesystem": "cpp",
+		"unordered_set": "cpp"
 	},
 	"cSpell.words": [
 		"pown"
-	]
+	],
+	"C_Cpp.errorSquiggles": "Enabled"
 }
