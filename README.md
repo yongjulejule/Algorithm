@@ -20,10 +20,24 @@ docker run --rm -itd --name boj ghcr.io/yongjulejule/boj_env:v1.0.0
 컨테이너에서 컴파일
 
 ```bash
-docker cp [path/to/file/in/host] [container_name]:/tmp/Main.cc
-docker exec -it [container_name] /bin/bash
+# 필요한 src 파일 컨테이너로 복사
+# docker cp [path/to/file/in/host] [container_name]:/tmp/Main.cc
+docker cp main.cpp boj:/tmp/Main.cc
+docker exec boj g++ /tmp/Main.cc -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
+```
+
+
+컨테이너에서 컴파일 및 실행
+
+```bash
+# 필요한 src 파일 컨테이너로 복사
+# docker cp [path/to/file/in/host] [container_name]:/tmp/Main.cc
+docker cp main.cpp boj:/tmp/Main.cc
+# docker exec -it [container_name] <executable>
+docker exec -it boj /bin/bash
 
 # [in container]
+cd /tmp
 g++ Main.cc -o Main -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
 ./Main
 ```
