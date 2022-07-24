@@ -92,7 +92,9 @@ class Heap {
 };
 
 struct Comp {
-  bool operator()(int& a, int& b) { return abs(a) < abs(b); }
+  bool operator()(int& a, int& b) {
+    return abs(a) < abs(b) ? true : abs(a) == abs(b) ? a < b : false;
+  }
 };
 
 using namespace std;
