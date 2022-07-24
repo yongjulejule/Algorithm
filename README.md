@@ -13,9 +13,11 @@ Studying Algorithm
 Dockerfile 을 이용한 환경 구축
 
 ```bash
-docker pull ghcr.io/yongjulejule/boj_env:v1.0.0
-docker run --rm -itd --name boj ghcr.io/yongjulejule/boj_env:v1.0.0
+docker pull ghcr.io/yongjulejule/boj_env:v1.0.1
+docker run --rm -itd --name boj ghcr.io/yongjulejule/boj_env:v1.0.1
 ```
+
+BOJ에선 `g++ -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ` 와 같이 컴파일 하는데 이 명령어를 `c`에 `alias` 해둠
 
 컨테이너에서 컴파일
 
@@ -23,7 +25,7 @@ docker run --rm -itd --name boj ghcr.io/yongjulejule/boj_env:v1.0.0
 # 필요한 src 파일 컨테이너로 복사
 # docker cp [path/to/file/in/host] [container_name]:/tmp/Main.cc
 docker cp main.cpp boj:/tmp/Main.cc
-docker exec boj g++ /tmp/Main.cc -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
+docker exec boj c /tmp/main.cc
 ```
 
 
@@ -38,6 +40,6 @@ docker exec -it boj /bin/bash
 
 # [in container]
 cd /tmp
-g++ Main.cc -o Main -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
+c main.cc
 ./Main
 ```
