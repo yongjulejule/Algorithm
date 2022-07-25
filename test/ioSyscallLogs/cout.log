@@ -1,0 +1,19 @@
+execve("./a.out", ["./a.out"], 0xffffee052ac0 /* 8 vars */) = 0
+brk(NULL)                               = 0x246f0000
+brk(0x246f0bd0)                         = 0x246f0bd0
+set_tid_address(0x246f00d0)             = 311
+set_robust_list(0x246f00e0, 24)         = 0
+rseq(0x246f07a0, 0x20, 0, 0xd428bc00)   = 0
+uname({sysname="Linux", nodename="fb31b38e2249", ...}) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+readlinkat(AT_FDCWD, "/proc/self/exe", "/a.out", 4096) = 6
+getrandom("\x45\x27\xee\xbb\x28\xbe\x12\x1b", 8, GRND_NONBLOCK) = 8
+brk(0x24711bd0)                         = 0x24711bd0
+brk(0x24712000)                         = 0x24712000
+mprotect(0x576000, 45056, PROT_READ)    = 0
+futex(0x5842d0, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+futex(0x5842d4, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, AT_EMPTY_PATH) = 0
+write(1, "HelloWorld\n", 11)            = 11
+exit_group(0)                           = ?
++++ exited with 0 +++

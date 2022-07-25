@@ -77,7 +77,8 @@
 		"unordered_set": "cpp"
 	},
 	"cSpell.words": [
-		"pown"
+		"pown",
+		"Tetromino"
 	],
 	"C_Cpp.errorSquiggles": "Enabled"
 }
