@@ -1,0 +1,17 @@
+
+services:
+  BOJ: 
+    image: ghcr.io/yongjulejule/boj_env:v1.0.1
+    container_name: BOJ
+    volumes: 
+      - BOJ_VOL:/boj
+    command: tail -f
+
+volumes:
+  BOJ_VOL:
+    name: BOJ_VOL
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME:-/home/yongjule}/algorithm/
