@@ -1,10 +1,6 @@
-#if __GNUC__ && !__clang__
-#include <bits/stdc++.h>
-#else  // __clang__
 #include <algorithm>
 #include <iostream>
 #include <memory>
-#endif  // gcc or not
 
 template <typename T>
 struct Node {
@@ -93,17 +89,3 @@ class BST {
   }
   ~BST() { deleteTree(__root); }
 };
-
-using namespace std;
-int main() {
-  cout.tie(nullptr);
-  cin.tie(nullptr)->ios::sync_with_stdio(false);
-  BST<int> t;
-  while (true) {
-    int i;
-    cin >> i;
-    if (!cin.good()) break;
-    t.insert(i);
-  }
-  t.postOrder(t.getRoot());
-}
