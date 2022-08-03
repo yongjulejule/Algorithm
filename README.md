@@ -13,8 +13,8 @@ Studying Algorithm
 Dockerfile 을 이용한 환경 구축
 
 ```bash
-docker pull ghcr.io/yongjulejule/boj_env:v1.0.1
-docker run --rm -itd --name boj ghcr.io/yongjulejule/boj_env:v1.0.1
+docker pull ghcr.io/yongjulejule/boj_env:v1.0.2
+docker run --rm -itd --name boj ghcr.io/yongjulejule/boj_env:v1.0.2
 ```
 
 BOJ에선 `g++ -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ` 와 같이 컴파일 하는데 이 명령어를 `c`에 `alias` 해둠
