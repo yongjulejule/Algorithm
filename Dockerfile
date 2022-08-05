@@ -14,3 +14,8 @@ COPY ./entrypoint.sh /tmp/entrypoint.sh
 RUN chmod +x /tmp/entrypoint.sh
 
 ENTRYPOINT ["/tmp/entrypoint.sh"]
+
+CMD ["tail", "-f", "/dev/null"]
+
+VOLUME [ "/boj" ]
+

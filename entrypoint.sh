@@ -2,5 +2,4 @@
 
 trap "exit" TERM 
 
-read
-
+"$@"

@@ -1,11 +1,10 @@
 
 services:
   BOJ: 
-    image: ghcr.io/yongjulejule/boj_env:v1.0.1
+    image: ghcr.io/yongjulejule/boj_env:v1.0.2
     container_name: BOJ
     volumes: 
       - BOJ_VOL:/boj
-    command: tail -f
 
 volumes:
   BOJ_VOL:
