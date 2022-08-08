@@ -13,9 +13,10 @@ int main() {
   // for (int i = 0; i < 100; ++i) printf("%s", s);
   // for (int i = 0; i < 100; ++i) cout << s;
   for (int i = 0; i < 100; ++i) puts(s);
+  cout << "hi\n";
 
   // {
-  //   auto start = chrono::steady_clock::now();
+  // auto start = chrono::steady_clock::now();
   //   /* Insert Your First Test Cases */
   //   for (int i = 0; i < 100; ++i) {
   //     printf("%s", s);
