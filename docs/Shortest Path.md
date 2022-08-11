@@ -1,13 +1,10 @@
 # Shortest-paths problem (최단 경로 문제)
 >Introduction to Algorithms 3rd edition 챕터 24를 정리한 내용
 
-최단 경로 문제에서, 가중치가 있고 방향이 있는 그래프 $G = (V, E)$ 와  `edge` 를 실수의 가중치(weight)로 매핑하는 $w : E \rightarrow \mathbb{R}$ 함수가 주어진다. 경로 $p = <v_0, v_1, ... ,v_k>$ 의 가중치 $w(p)$ 는 구성하는 `edges`의 합이 된다. $$ \sum_{i=1}^k w(v_{i-1}, v_i)$$
-이때 $u$ 부터 $v$ 까지의 최단 경로(shortest-path weight) $\delta(u, v)$ 는 다음과 같이 정의된다. $$\begin{equation}
-	\delta(u, v) = \begin{cases}
-		min\{w(p) : u \rightsquigarrow^{p}v \}, & \text{if there is a path from u to v}. \\
-		\infty, & \text {otherwise}.
-	\end{cases}
-\end{equation}$$
+최단 경로 문제에서, 가중치가 있고 방향이 있는 그래프 $G = (V, E)$ 와  `edge` 를 실수의 가중치(weight)로 매핑하는 $w : E \rightarrow \mathbb{R}$ 함수가 주어진다. 경로 $p = <v_0, v_1, ... ,v_k>$ 의 가중치 $w(p)$ 는 구성하는 `edges`의 합이 된다. 
+$\sum_{i=1}^k w(v_{i-1}, v_i)$  
+이때 $u$ 부터 $v$ 까지의 최단 경로(shortest-path weight) $\delta(u, v)$ 는 다음과 같이 정의된다.
+$\begin{equation} \delta(u, v) = \begin{cases} min\{w(p) : u \rightsquigarrow^{p}v \}, & \text{if there is a path from u to v}. \\ \infty, & \text {otherwise}. \end{cases} \end{equation}$
 이때 $u$ 부터 $v$ 까지의 경로 $p$ 중 $w(p) = \delta(u, v)$ 를 만족하는 $p$가 []()된다.
 
 edge의 가중치는 거리 뿐만 아니라 소요시간, 비용, 패널티, 손실 혹은 알고리즘에서 최소화 하기 위한 어떤 값이든 될 수 있다.
