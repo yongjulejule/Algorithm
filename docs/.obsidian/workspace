@@ -61,7 +61,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 233.5,
     "collapsed": true
   },
   "right": {
@@ -131,8 +131,9 @@
   },
   "active": "94ee6e78fb1e57b7",
   "lastOpenFiles": [
-    "shortestPathTree.png",
+    "dijkstraAlgorithm.png",
+    "negativeEdge.png",
     "Shortest Path.md",
-    "negativeEdge.png"
+    "shortestPathTree.png"
   ]
 }
